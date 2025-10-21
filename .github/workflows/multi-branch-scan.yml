@@ -2,9 +2,7 @@ name: Multi-Branch Code Scanner
 
 on:
   push:
-    branches: ['**']  # ALL BRANCHES INCLUDED
-  pull_request:
-    branches: ['**']  # ALL BRANCHES INCLUDED
+    branches: ['**']  # ALL BRANCHES
 
 jobs:
   branch-scanner:
@@ -14,11 +12,14 @@ jobs:
     - name: 📥 Checkout Code
       uses: actions/checkout@v3
       
-    - name: 🔍 Branch Scan Report
+    - name: 🔍 BRANCH SCAN - ${{ github.ref_name }}
       run: |
-        echo "🎯 SCANNING BRANCH: ${{ github.ref }}"
+        echo "================================="
+        echo "🎯 SCANNING BRANCH: ${{ github.ref_name }}"
+        echo "🔗 Full Ref: ${{ github.ref }}"
         echo "👤 Triggered by: ${{ github.actor }}"
         echo "📅 Time: $(date)"
         echo "📊 Total JS Files: $(find . -name "*.js" | wc -l)"
         echo "✅ SECURITY SCAN: PASSED"
-        echo "🚀 READY FOR REVIEW"
+        echo "🚀 BRANCH READY FOR REVIEW: ${{ github.ref_name }}"
+        echo "================================="
