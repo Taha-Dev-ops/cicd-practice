@@ -1,0 +1,23 @@
+<html>
+<head>
+    <title>Taha CI/CD App</title>
+    <style>
+        body { font-family: Arial; margin: 40px; background: #f0f8ff; }
+        .success { color: green; font-weight: bold; }
+        .error { color: red; }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; background: white; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Welcome to Taha's CI/CD App</h1>
+        <p class="success">✅ This will be deployed automatically via CI/CD!</p>
+        <p><strong>Deployed by:</strong> Taha DevOps</p>
+        <p><strong>Server Time:</strong> <span id="time"></span></p>
+        <p><strong>Status:</strong> <span class="success">RUNNING</span></p>
+    </div>
+    <script>
+        document.getElementById('time').textContent = new Date().toLocaleString();
+    </script>
+</body>
+</html>
