@@ -1,0 +1,16 @@
+name: Branch Scanner New
+
+on:
+  push:
+    branches: ['**']
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Scan Report
+      run: |
+        echo "🆕 NEW SCANNER - Branch: ${{ github.ref }}"
+        echo "✅ Files: $(find . -name "*.js" | wc -l)"
+        echo "🎯 Time: $(date)"
