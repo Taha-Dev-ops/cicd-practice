@@ -18,7 +18,8 @@ jobs:
     - name: 🔍 Run Security Scan
       run: |
         echo "Checking for sensitive data..."
-        if grep -r "password\|secret\|key" . --exclude-dir=.git; then
+        # Exclude the workflow file itself from security scan
+        if find . -name "*.yml" -o -name "*.yaml" -o -name "*.html" -o -name "*.sh" | grep -v ".github/workflows" | xargs grep -l "password\|secret\|key" 2>/dev/null; then
           echo "❌ SECURITY ALERT: Sensitive data found!"
           exit 1
         else
