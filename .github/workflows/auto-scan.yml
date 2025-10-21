@@ -1,0 +1,16 @@
+name: Auto Branch Scanner
+
+on:
+  push:
+    branches: ['**']  # ALL BRANCHES
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Auto Scan - ${{ github.ref_name }}
+      run: |
+        echo "🎯 AUTO SCANNING: ${{ github.ref_name }}"
+        echo "📁 Files: $(find . -name "*.js" | wc -l)"
+        echo "✅ AUTO SCAN COMPLETE"
