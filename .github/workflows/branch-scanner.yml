@@ -1,0 +1,17 @@
+name: Branch Scanner
+
+on:
+  push:
+    branches: ['**']
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Scan Branch
+      run: |
+        echo "Branch: ${{ github.ref_name }}"
+        echo "Developer: ${{ github.actor }}"
+        echo "Files: $(find . -name '*.js' | wc -l)"
+        echo "Status: SCAN_COMPLETED"
