@@ -1,0 +1,57 @@
+name: Multi-Branch Code Scanner
+
+on:
+  push:
+    branches: ['**']  # ALL BRANCHES
+  pull_request:
+    branches: ['**']  # ALL BRANCHES
+
+jobs:
+  branch-scanner:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout Code
+      uses: actions/checkout@v3
+      
+    - name: 🔍 Branch Information
+      run: |
+        echo "=== MULTI-BRANCH SCANNER ==="
+        echo "🎯 Scanning Branch: ${{ github.ref }}"
+        echo "👤 Triggered by: ${{ github.actor }}"
+        echo "📝 Commit: ${{ github.sha }}"
+        echo "🕒 Scan Time: $(date)"
+        echo "================================="
+        
+    - name: 📊 Code Analysis
+      run: |
+        echo "=== CODE ANALYSIS ==="
+        echo "📁 Total Files: $(find . -type f | grep -v '.git' | wc -l)"
+        echo "📝 JavaScript Files: $(find . -name "*.js" | wc -l)"
+        echo "🌐 HTML Files: $(find . -name "*.html" | wc -l)"
+        echo "📋 Other Files: $(find . -type f | grep -v '.git' | grep -v '.js' | grep -v '.html' | wc -l)"
+        echo "================================="
+        
+    - name: 🛡️ Security Scan
+      run: |
+        echo "=== SECURITY SCAN ==="
+        echo "🔍 Scanning for sensitive data..."
+        if find . -name "*.js" | xargs grep -l "password\|secret\|key" 2>/dev/null; then
+          echo "❌ SECURITY ALERT: Sensitive data found!"
+          echo "🚫 Blocking this commit..."
+          exit 1
+        else
+          echo "✅ SECURITY PASS: No sensitive data found"
+        fi
+        echo "================================="
+        
+    - name: 📈 Scan Summary
+      run: |
+        echo "=== SCAN SUMMARY ==="
+        echo "✅ Branch: ${{ github.ref }}"
+        echo "✅ Security: PASSED"
+        echo "✅ Code Analysis: COMPLETED"
+        echo "✅ Status: READY FOR REVIEW"
+        echo "👨‍💻 Scanned by: Taha's Multi-Branch CI/CD"
+        echo "🎯 Total Branches in Repo: 11"
+        echo "================================="
